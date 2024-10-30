@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela com Validação</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f9f9f9; 
+        }
+
+        h1 {
+            color: #333; 
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white; 
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2; 
+        }
+
+        tr:hover {
+            background-color: #d1e7dd; 
+        }
+
+        .input-validacao {
+            width: 90%;
+            padding: 5px; 
+            border: 1px solid #ccc;
+            border-radius: 4px; 
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            background-color: #007BFF; 
+            color: white; 
+            border: none;
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+
+        button:hover {
+            background-color: #0056b3; 
+        }
+
+        #mensagem {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tabela de Dados</h1>
+    <table id="tabela">
+        <tr>
+            <th>Campo</th>
+            <th>Valor</th>
+        </tr>
+        <tr>
+            <td>Nome</td>
+            <td><input type="text" class="input-validacao" placeholder="Digite seu nome"></td>
+        </tr>
+        <tr>
+            <td>Telefone</td>
+            <td><input type="text" class="input-validacao" placeholder="Digite seu telefone"></td>
+        </tr>
+        <tr>
+            <td>Idade</td>
+            <td><input type="number" class="input-validacao" placeholder="Digite sua idade"></td>
+        </tr>
+        <tr>
+            <td>Endereço</td>
+            <td><input type="text" class="input-validacao" placeholder="Digite seu endereço"></td>
+        </tr>
+        <tr>
+            <td>RG</td>
+            <td><input type="text" class="input-validacao" placeholder="Digite seu RG"></td>
+        </tr>
+        <tr>
+            <td>CPF</td>
+            <td><input type="text" class="input-validacao" placeholder="Digite seu CPF"></td>
+        </tr>
+        <tr>
+            <td>E-MAIL</td>
+            <td><input type="email" class="input-validacao" placeholder="Digite seu e-mail"></td>
+        </tr>
+        <tr>
+            <td>Altura (cm)</td>
+            <td><input type="number" class="input-validacao" placeholder="Digite sua altura"></td>
+        </tr>
+        <tr>
+            <td>Peso (kg)</td>
+            <td><input type="number" class="input-validacao" placeholder="Digite seu peso"></td>
+        </tr>
+        <tr>
+            <td>Tipo sanguíneo</td>
+            <td><input type="text" class="input-validacao" placeholder="Digite seu tipo sanguíneo"></td>
+        </tr>
+    </table>
+    <button onclick="validarDados()">Validar Dados</button>
+    <div id="mensagem"></div>
+
+    <script>
+        function validarDados() {
+            const inputs = document.querySelectorAll('.input-validacao');
+            let todosPreenchidos = true;
+
+            const nomesCampos = [
+                "Nome",
+                "Telefone",
+                "Idade",
+                "Endereço",
+                "RG",
+                "CPF",
+                "E-MAIL",
+                "Altura (cm)",
+                "Peso (kg)",
+                "Tipo sanguíneo"
+            ];
+
+            const regexNome = /^[A-Za-z\s]+$/; 
+            const regexEndereco = /^[A-Za-z\s]+$/; 
+            const regexNumeros = /^[0-9]+$/; 
+
+            inputs.forEach((input, index) => {
+                const valor = input.value.trim();
+
+                if (valor === '') {
+                    alert(`Campo "${nomesCampos[index]}" está vazio.`);
+                    todosPreenchidos = false;
+                } else if (index === 0 && !regexNome.test(valor)) { 
+                    alert(`Campo "${nomesCampos[index]}" deve conter apenas letras.`);
+                    todosPreenchidos = false;
+                } else if (index === 1 && !regexNumeros.test(valor)) { 
+                    alert(`Campo "${nomesCampos[index]}" deve conter apenas números.`);
+                    todosPreenchidos = false;
+                } else if (index === 3 && !regexEndereco.test(valor)) { 
+                    alert(`Campo "${nomesCampos[index]}" deve conter apenas letras.`);
+                    todosPreenchidos = false;
+                } else if (index === 4 && !regexNumeros.test(valor)) { 
+                    alert(`Campo "${nomesCampos[index]}" deve conter apenas números.`);
+                    todosPreenchidos = false;
+                } else if (index === 5 && !regexNumeros.test(valor)) { 
+                    alert(`Campo "${nomesCampos[index]}" deve conter apenas números.`);
+                    todosPreenchidos = false;
+                } else if ((index === 2 || index === 7 || index === 8) && isNaN(valor)) { 
+                    alert(`Campo "${nomesCampos[index]}" deve ser um número.`);
+                    todosPreenchidos = false;
+                }
+            });
+
+            if (todosPreenchidos) {
+                alert('Todos os campos estão preenchidos corretamente!');
+            }
+        }
+    </script>
+</body>
+</html>
